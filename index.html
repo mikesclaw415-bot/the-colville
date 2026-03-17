@@ -1843,6 +1843,12 @@ button {
     min-height: 360px;
   }
 }
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  input, textarea, select {
+    font-size: 16px !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -1948,7 +1954,7 @@ button {
       <!-- Featured promo card -->
       <div class="whats-on__featured whats-on__card" id="defaultPromoCard">
         <div class="whats-on__card-image">
-          <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=900&q=80" alt="Midweek Chef's Table">
+          <img src="https://images.pexels.com/photos/3437689/pexels-photo-3437689.jpeg?w=900&q=80" alt="Midweek Chef's Table">
         </div>
         <div class="whats-on__card-body">
           <span class="whats-on__card-label">Special Menu</span>
@@ -1977,7 +1983,7 @@ button {
         </div>
         <div class="whats-on__card">
           <div class="whats-on__card-image">
-            <img src="https://images.unsplash.com/photo-1581299894007-aaa50297cf16?w=800&q=80" alt="The Kitchen Counter">
+            <img src="https://images.pexels.com/photos/33474128/pexels-photo-33474128.jpeg?w=900&q=80" alt="The Kitchen Counter">
           </div>
           <div class="whats-on__card-body">
             <span class="whats-on__card-label">Chef's Counter</span>
@@ -2392,7 +2398,7 @@ function addPromoCard(data) {
   card.style.boxShadow = 'none';
   card.innerHTML = `
     <div class="whats-on__card-image">
-      <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=900&q=80" alt="${data.title}">
+      <img src="https://images.pexels.com/photos/3437689/pexels-photo-3437689.jpeg?w=900&q=80" alt="${data.title}">
     </div>
     <div class="whats-on__card-body" style="background: #FFFFFF;">
       <span class="whats-on__card-label">Special Menu</span>
