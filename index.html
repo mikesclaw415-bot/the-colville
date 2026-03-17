@@ -1,0 +1,2510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Colville — Kitchen & Bar | Notting Hill, London</title>
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   CSS Custom Properties
+   ============================================================ */
+:root {
+  --cream:      #FAF8F5;
+  --charcoal:   #1C1C1A;
+  --warm-brown: #3D2B1F;
+  --brass:      #B8966A;
+  --sage:       #4A5240;
+  --linen:      #F0EBE1;
+  --text-muted: #7A736A;
+
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body:    'Outfit', Helvetica, Arial, sans-serif;
+}
+
+/* ============================================================
+   Reset & Base
+   ============================================================ */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--charcoal);
+  background: var(--cream);
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* ============================================================
+   Utility: Section Label
+   ============================================================ */
+.section-label {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.section-subline {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 20px;
+  color: var(--text-muted);
+  margin-bottom: 40px;
+}
+
+/* ============================================================
+   Fade-in on scroll
+   ============================================================ */
+.fade-in-section {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 600ms ease, transform 600ms ease;
+}
+
+.fade-in-section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================================
+   1. Navigation
+   ============================================================ */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  z-index: 900;
+  transition: background 300ms ease, backdrop-filter 300ms ease, border-bottom 300ms ease;
+}
+
+.nav--scrolled {
+  background: rgba(250, 248, 245, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(184, 150, 106, 0.25);
+}
+
+.nav__wordmark {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--cream);
+  transition: color 300ms ease;
+}
+
+.nav--scrolled .nav__wordmark {
+  color: var(--charcoal);
+}
+
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  list-style: none;
+}
+
+.nav__links a {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--cream);
+  transition: color 300ms ease, opacity 200ms ease;
+}
+
+.nav__links a:hover {
+  opacity: 0.7;
+}
+
+.nav--scrolled .nav__links a {
+  color: var(--charcoal);
+}
+
+.nav__reserve {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  padding: 8px 20px;
+  border: 1px solid var(--brass);
+  color: var(--brass);
+  background: transparent;
+  border-radius: 1px;
+  transition: background 200ms ease, color 200ms ease;
+}
+
+.nav__reserve:hover {
+  background: var(--brass);
+  color: var(--charcoal);
+}
+
+/* ============================================================
+   2. Hero
+   ============================================================ */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 600px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 80px 80px;
+}
+
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  background: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1800&q=80') center/cover no-repeat;
+  z-index: 0;
+}
+
+.hero__bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(28,28,26,0.2) 0%, rgba(28,28,26,0.45) 100%);
+}
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+}
+
+.hero__eyebrow {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: rgba(250, 248, 245, 0.5);
+  margin-bottom: 20px;
+}
+
+.hero__headline {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(64px, 7vw, 96px);
+  line-height: 1.0;
+  color: var(--cream);
+  margin-bottom: 36px;
+}
+
+.hero__headline em {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.hero__ctas {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.hero__cta-btn {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  padding: 12px 28px;
+  border: 1px solid var(--brass);
+  color: var(--brass);
+  background: transparent;
+  border-radius: 1px;
+  transition: background 200ms ease, color 200ms ease;
+}
+
+.hero__cta-btn:hover {
+  background: var(--brass);
+  color: var(--charcoal);
+}
+
+.hero__cta-link {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--cream);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 200ms ease;
+}
+
+.hero__cta-link:hover {
+  border-bottom-color: var(--cream);
+}
+
+/* Scroll indicator */
+.hero__scroll {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  animation: bounce 2.4s ease infinite;
+}
+
+.hero__scroll svg {
+  width: 24px;
+  height: 24px;
+  stroke: var(--cream);
+  stroke-width: 1.5;
+  fill: none;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
+}
+
+/* ============================================================
+   3. Scrolling Ticker / Marquee
+   ============================================================ */
+.ticker {
+  background: var(--charcoal);
+  height: 48px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.ticker__track {
+  display: flex;
+  white-space: nowrap;
+  animation: marquee 30s linear infinite;
+}
+
+.ticker__text {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--brass);
+  padding-right: 0;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ============================================================
+   4. Introduction / About
+   ============================================================ */
+.about {
+  background: var(--cream);
+  display: flex;
+  min-height: 560px;
+}
+
+.about__image {
+  width: 45%;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.about__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 600ms ease;
+}
+
+.about__image:hover img {
+  transform: scale(1.03);
+}
+
+.about__text {
+  width: 55%;
+  padding: 80px 80px 80px 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.about__rule {
+  width: 40px;
+  height: 1px;
+  background: var(--brass);
+  margin-bottom: 24px;
+}
+
+.about__headline {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 48px;
+  line-height: 1.1;
+  color: var(--charcoal);
+  margin-bottom: 16px;
+}
+
+.about__subline {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 20px;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+}
+
+.about__body p {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--charcoal);
+  margin-bottom: 16px;
+}
+
+/* ============================================================
+   5. What's On
+   ============================================================ */
+.whats-on {
+  background: var(--linen);
+  padding: 100px 0;
+}
+
+.whats-on__header {
+  margin-bottom: 48px;
+}
+
+.whats-on__list {
+  max-width: 100%;
+}
+
+.whats-on__card {
+  display: flex;
+  gap: 0;
+  margin-bottom: 32px;
+  border-bottom: 1px solid rgba(28, 28, 26, 0.1);
+  padding-bottom: 32px;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 500ms ease, transform 500ms ease;
+}
+
+.whats-on__card--entering {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.whats-on__card--highlight .whats-on__card-body {
+  box-shadow: -4px 0 12px rgba(184, 150, 106, 0.4);
+}
+
+.whats-on__card-image {
+  width: 200px;
+  min-width: 200px;
+  height: 260px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.whats-on__card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 600ms ease;
+}
+
+.whats-on__card-image:hover img {
+  transform: scale(1.03);
+}
+
+.whats-on__card-body {
+  border-left: 3px solid var(--brass);
+  padding: 28px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: box-shadow 600ms ease;
+}
+
+.whats-on__card-label {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.whats-on__card-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 1.2;
+  color: var(--charcoal);
+  margin-bottom: 10px;
+}
+
+.whats-on__card-desc {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 15px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.whats-on__card-price {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 13px;
+  text-transform: uppercase;
+  color: var(--brass);
+  margin-bottom: 4px;
+}
+
+.whats-on__card-dates {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+
+.whats-on__card-cta {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 13px;
+  color: var(--brass);
+  border-bottom: 1px solid var(--brass);
+  align-self: flex-start;
+  transition: opacity 200ms ease;
+}
+
+.whats-on__card-cta:hover {
+  opacity: 0.7;
+}
+
+/* ============================================================
+   6. Menu Teaser
+   ============================================================ */
+.menu-teaser {
+  background: var(--charcoal);
+  padding-top: 80px;
+}
+
+.menu-teaser__header {
+  padding: 0 80px 48px;
+}
+
+.menu-teaser__header .section-label,
+.menu-teaser__header .section-subline {
+  color: rgba(250, 248, 245, 0.5);
+}
+
+.menu-teaser__header .section-subline {
+  color: rgba(250, 248, 245, 0.7);
+}
+
+.menu-teaser__tiles {
+  display: flex;
+}
+
+.menu-teaser__tile {
+  width: 50%;
+  position: relative;
+  overflow: hidden;
+  height: 500px;
+}
+
+.menu-teaser__tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 600ms ease;
+}
+
+.menu-teaser__tile:hover img {
+  transform: scale(1.04);
+}
+
+.menu-teaser__tile-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(28, 28, 26, 0.35);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: background 400ms ease;
+}
+
+.menu-teaser__tile:hover .menu-teaser__tile-overlay {
+  background: rgba(28, 28, 26, 0.55);
+}
+
+.menu-teaser__tile-label {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: white;
+  margin-bottom: 8px;
+}
+
+.menu-teaser__tile-subline {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 22px;
+  color: white;
+  margin-bottom: 16px;
+}
+
+.menu-teaser__tile-cta {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: white;
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+
+.menu-teaser__tile:hover .menu-teaser__tile-cta {
+  opacity: 1;
+}
+
+/* ============================================================
+   7. Private Dining & Wine
+   ============================================================ */
+/* Private Dining */
+.private-dining {
+  position: relative;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.private-dining__bg {
+  position: absolute;
+  inset: 0;
+  background: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1400&q=80') center/cover no-repeat;
+}
+
+.private-dining__bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(28, 28, 26, 0.5);
+}
+
+.private-dining__content {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+  padding: 60px 40px;
+}
+
+.private-dining__label {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 20px;
+}
+
+.private-dining__headline {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 48px;
+  line-height: 1.1;
+  color: white;
+  margin-bottom: 16px;
+}
+
+.private-dining__subline {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 20px;
+  color: rgba(255,255,255,0.8);
+  margin-bottom: 32px;
+}
+
+.private-dining__cta {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  padding: 12px 28px;
+  border: 1px solid white;
+  color: white;
+  border-radius: 1px;
+  transition: background 200ms ease, color 200ms ease;
+}
+
+.private-dining__cta:hover {
+  background: white;
+  color: var(--charcoal);
+}
+
+/* Wine */
+.wine {
+  background: var(--cream);
+  display: flex;
+  min-height: 420px;
+}
+
+.wine__image {
+  width: 45%;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.wine__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 600ms ease;
+}
+
+.wine__image:hover img {
+  transform: scale(1.03);
+}
+
+.wine__text {
+  width: 55%;
+  padding: 80px 80px 80px 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.wine__rule {
+  width: 40px;
+  height: 1px;
+  background: var(--brass);
+  margin-bottom: 24px;
+}
+
+.wine__headline {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 42px;
+  line-height: 1.1;
+  color: var(--charcoal);
+  margin-bottom: 16px;
+}
+
+.wine__body p {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 15px;
+  color: var(--charcoal);
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.wine__cta {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--brass);
+  border-bottom: 1px solid var(--brass);
+  align-self: flex-start;
+  transition: opacity 200ms ease;
+}
+
+.wine__cta:hover {
+  opacity: 0.7;
+}
+
+/* ============================================================
+   8. Footer
+   ============================================================ */
+.footer {
+  background: var(--warm-brown);
+  padding: 80px 0 0;
+  color: var(--cream);
+}
+
+.footer__grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr 1.2fr;
+  gap: 48px;
+  padding-bottom: 60px;
+}
+
+.footer__logo {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--cream);
+  margin-bottom: 8px;
+}
+
+.footer__tagline {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 15px;
+  color: var(--brass);
+}
+
+.footer h4 {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--brass);
+  margin-bottom: 20px;
+}
+
+.footer__nav-links {
+  list-style: none;
+}
+
+.footer__nav-links li {
+  margin-bottom: 10px;
+}
+
+.footer__nav-links a {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 14px;
+  color: rgba(250, 248, 245, 0.7);
+  transition: color 200ms ease;
+}
+
+.footer__nav-links a:hover {
+  color: var(--cream);
+}
+
+.footer__address p,
+.footer__hours p {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 14px;
+  color: rgba(250, 248, 245, 0.7);
+  line-height: 1.6;
+}
+
+.footer__hours {
+  margin-top: 16px;
+}
+
+.footer__newsletter-label {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 14px;
+  color: rgba(250, 248, 245, 0.7);
+  margin-bottom: 12px;
+}
+
+.footer__newsletter-form {
+  display: flex;
+  gap: 0;
+}
+
+.footer__newsletter-form input {
+  flex: 1;
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 14px;
+  padding: 10px 14px;
+  background: rgba(250, 248, 245, 0.1);
+  border: 1px solid rgba(184, 150, 106, 0.3);
+  border-right: none;
+  border-radius: 0;
+  color: var(--cream);
+  outline: none;
+}
+
+.footer__newsletter-form input::placeholder {
+  color: rgba(250, 248, 245, 0.4);
+}
+
+.footer__newsletter-form input:focus {
+  border-color: var(--brass);
+}
+
+.footer__newsletter-form button {
+  padding: 10px 16px;
+  background: var(--brass);
+  border: 1px solid var(--brass);
+  border-radius: 0;
+  color: var(--charcoal);
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer__social {
+  display: flex;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.footer__social a {
+  color: var(--cream);
+  transition: opacity 200ms ease;
+}
+
+.footer__social a:hover {
+  opacity: 0.7;
+}
+
+.footer__social svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.footer__bottom {
+  border-top: 1px solid rgba(250, 248, 245, 0.15);
+  padding: 20px 0;
+  text-align: center;
+}
+
+.footer__bottom p {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* ============================================================
+   Announcement Bar
+   ============================================================ */
+.announcement-bar {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  right: 0;
+  height: 0;
+  overflow: hidden;
+  background: var(--brass);
+  z-index: 899;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  transition: height 300ms ease;
+}
+
+.announcement-bar--visible {
+  height: 48px;
+}
+
+.announcement-bar__text {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--charcoal);
+}
+
+.announcement-bar__link {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--charcoal);
+  border-bottom: 1px solid var(--charcoal);
+}
+
+.announcement-bar__dismiss {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: var(--charcoal);
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 200ms ease;
+}
+
+.announcement-bar__dismiss:hover {
+  opacity: 1;
+}
+
+/* ============================================================
+   Promo Tool
+   ============================================================ */
+.promo-tool__tab {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 180px;
+  background: var(--brass);
+  color: var(--charcoal);
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  transition: opacity 200ms ease;
+  border-radius: 0;
+}
+
+.promo-tool__tab:hover {
+  opacity: 0.9;
+}
+
+.promo-tool__tab--hidden {
+  display: none;
+}
+
+/* Backdrop overlay */
+.promo-tool__backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 300ms ease;
+}
+
+.promo-tool__backdrop--visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Panel */
+.promo-tool__panel {
+  position: fixed;
+  top: 0;
+  right: -400px;
+  width: 380px;
+  height: 100vh;
+  background: var(--charcoal);
+  z-index: 1002;
+  display: flex;
+  flex-direction: column;
+  transition: right 400ms ease-in-out;
+  overflow: hidden;
+}
+
+.promo-tool__panel--open {
+  right: 0;
+}
+
+/* Flash overlay for publish */
+.promo-tool__flash {
+  position: absolute;
+  inset: 0;
+  background: var(--brass);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Panel header */
+.promo-tool__header {
+  padding: 24px 24px 20px;
+  background: var(--charcoal);
+  border-bottom: 1px solid rgba(184, 150, 106, 0.2);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.promo-tool__header-label {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--brass);
+  margin-bottom: 6px;
+}
+
+.promo-tool__header-title {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 20px;
+  color: var(--cream);
+}
+
+.promo-tool__close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 22px;
+  color: var(--cream);
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 200ms ease;
+  line-height: 1;
+}
+
+.promo-tool__close:hover {
+  opacity: 1;
+}
+
+/* Panel body */
+.promo-tool__body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+}
+
+/* Form state */
+.promo-tool__form-group {
+  margin-bottom: 18px;
+}
+
+.promo-tool__form-label {
+  display: block;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: rgba(250, 248, 245, 0.5);
+  margin-bottom: 6px;
+}
+
+.promo-tool__form-input,
+.promo-tool__form-textarea {
+  width: 100%;
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 14px;
+  padding: 10px 12px;
+  background: var(--cream);
+  color: var(--charcoal);
+  border: 1px solid transparent;
+  border-radius: 0;
+  outline: none;
+  transition: border-color 200ms ease;
+}
+
+.promo-tool__form-input:focus,
+.promo-tool__form-textarea:focus {
+  border-color: var(--brass);
+}
+
+.promo-tool__form-textarea {
+  resize: vertical;
+  min-height: 72px;
+}
+
+/* Tone selector */
+.promo-tool__tone-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.promo-tool__tone-btn {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 12px;
+  padding: 10px 8px;
+  border: 1px solid rgba(250, 248, 245, 0.3);
+  color: var(--cream);
+  background: var(--charcoal);
+  border-radius: 0;
+  cursor: pointer;
+  transition: background 200ms ease, color 200ms ease, border-color 200ms ease;
+  text-align: center;
+}
+
+.promo-tool__tone-btn--active {
+  background: var(--brass);
+  color: var(--charcoal);
+  border-color: var(--brass);
+}
+
+/* Publish button */
+.promo-tool__publish {
+  width: 100%;
+  padding: 14px;
+  background: var(--brass);
+  color: var(--charcoal);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: opacity 200ms ease;
+}
+
+.promo-tool__publish:hover {
+  opacity: 0.9;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.promo-tool__publish--publishing {
+  animation: pulse 800ms ease infinite;
+}
+
+/* ============================================================
+   Output State
+   ============================================================ */
+.promo-tool__output {
+  display: none;
+}
+
+.promo-tool__output--visible {
+  display: block;
+}
+
+.promo-tool__form {
+  display: block;
+}
+
+.promo-tool__form--hidden {
+  display: none;
+}
+
+.output__status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.output__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #4CAF50;
+  animation: dotPulse 1.5s ease infinite;
+}
+
+@keyframes dotPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.output__status-text {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--cream);
+}
+
+.output__subline {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 18px;
+  color: rgba(250, 248, 245, 0.7);
+  margin-bottom: 24px;
+}
+
+/* Tabs */
+.output__tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid rgba(184, 150, 106, 0.3);
+  margin-bottom: 20px;
+}
+
+.output__tab {
+  flex: 1;
+  padding: 10px 0;
+  text-align: center;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(250, 248, 245, 0.5);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: color 200ms ease, border-color 200ms ease;
+}
+
+.output__tab--active {
+  color: var(--brass);
+  border-bottom-color: var(--brass);
+}
+
+.output__tab-content {
+  display: none;
+}
+
+.output__tab-content--active {
+  display: block;
+}
+
+.output__copy-block {
+  background: rgba(250, 248, 245, 0.05);
+  border: 1px solid rgba(184, 150, 106, 0.15);
+  padding: 16px;
+  margin-bottom: 12px;
+  border-radius: 0;
+}
+
+.output__copy-text {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 13px;
+  color: var(--cream);
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  line-height: 1.6;
+}
+
+.output__char-count {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.output__copy-btn {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 8px 16px;
+  border: 1px solid var(--brass);
+  color: var(--brass);
+  background: none;
+  cursor: pointer;
+  border-radius: 0;
+  transition: background 200ms ease, color 200ms ease;
+}
+
+.output__copy-btn:hover {
+  background: var(--brass);
+  color: var(--charcoal);
+}
+
+.output__reset {
+  display: inline-block;
+  margin-top: 24px;
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 13px;
+  color: rgba(250, 248, 245, 0.5);
+  cursor: pointer;
+  border: none;
+  background: none;
+  transition: color 200ms ease;
+}
+
+.output__reset:hover {
+  color: var(--cream);
+}
+
+/* ============================================================
+   Container
+   ============================================================ */
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 80px;
+}
+
+/* ============================================================
+   What's On — Featured Layout
+   ============================================================ */
+.whats-on__featured {
+  display: flex;
+  gap: 0;
+  margin-bottom: 40px;
+  min-height: 360px;
+}
+
+.whats-on__featured .whats-on__card-image {
+  width: 45%;
+  min-width: 45%;
+  height: auto;
+  min-height: 360px;
+}
+
+.whats-on__featured .whats-on__card-body {
+  width: 55%;
+  border-top: 1px solid rgba(184,150,106,0.3);
+  padding: 36px 40px;
+}
+
+.whats-on__featured .whats-on__card-title {
+  font-size: 40px;
+  margin-bottom: 14px;
+}
+
+.whats-on__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.whats-on__grid .whats-on__card {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.whats-on__grid .whats-on__card-image {
+  width: 100%;
+  min-width: 100%;
+  height: 260px;
+}
+
+.whats-on__grid .whats-on__card-body {
+  border-left: 3px solid var(--brass);
+  border-top: 1px solid rgba(184,150,106,0.3);
+  padding: 28px 32px;
+}
+
+/* ============================================================
+   Menu Section — Editorial Dishes
+   ============================================================ */
+.menu-section {
+  background: var(--charcoal);
+  padding: 100px 0;
+}
+
+.menu-section__header {
+  margin-bottom: 48px;
+}
+
+.menu-section__header .section-label {
+  color: rgba(250, 248, 245, 0.5);
+}
+
+.menu-section__header .section-subline {
+  color: rgba(250, 248, 245, 0.7);
+}
+
+.menu-section__intro {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 15px;
+  color: rgba(250, 248, 245, 0.5);
+  margin-bottom: 60px;
+  max-width: 640px;
+}
+
+.menu-section__dishes {
+  max-width: 100%;
+}
+
+.menu-dish {
+  display: flex;
+  gap: 0;
+  padding: 48px 0;
+  border-top: 1px solid rgba(184,150,106,0.2);
+}
+
+.menu-dish--featured {
+  min-height: 400px;
+}
+
+.menu-dish__image {
+  width: 45%;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.menu-dish__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  min-height: 380px;
+}
+
+.menu-dish__content {
+  padding: 32px 0 32px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.menu-dish--text-only {
+  max-width: 640px;
+  padding-left: 0;
+}
+
+.menu-dish--offset {
+  padding-left: 45%;
+}
+
+.menu-dish--offset .menu-dish__content {
+  padding-left: 0;
+}
+
+.menu-dish__label {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: rgba(250, 248, 245, 0.4);
+  margin-bottom: 12px;
+}
+
+.menu-dish__name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 1.15;
+  color: white;
+  margin-bottom: 12px;
+}
+
+.menu-dish__desc {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 15px;
+  color: rgba(250, 248, 245, 0.7);
+  line-height: 1.7;
+  margin-bottom: 14px;
+}
+
+.menu-dish__price {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--brass);
+}
+
+.menu-section__cta-block {
+  margin-top: 60px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(184,150,106,0.2);
+}
+
+.menu-section__cta-link {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--brass);
+  border-bottom: 1px solid var(--brass);
+  transition: opacity 200ms ease;
+}
+
+.menu-section__cta-link:hover {
+  opacity: 0.7;
+}
+
+.menu-section__cta-note {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 16px;
+  color: rgba(250, 248, 245, 0.5);
+  margin-top: 14px;
+}
+
+/* ============================================================
+   Hamburger & Mobile Nav Overlay
+   ============================================================ */
+.nav__hamburger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 26px;
+  color: var(--cream);
+  cursor: pointer;
+  transition: color 300ms ease;
+  line-height: 1;
+}
+
+.nav--scrolled .nav__hamburger {
+  color: var(--charcoal);
+}
+
+.mobile-nav-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(28, 28, 26, 0.97);
+  z-index: 950;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+}
+
+.mobile-nav-overlay--open {
+  display: flex;
+}
+
+.mobile-nav-overlay__close {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  background: none;
+  border: none;
+  font-size: 32px;
+  color: var(--cream);
+  cursor: pointer;
+}
+
+.mobile-nav-overlay a {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--cream);
+  transition: opacity 200ms ease;
+}
+
+.mobile-nav-overlay a:hover {
+  opacity: 0.7;
+}
+
+/* ============================================================
+   Responsive: ≤1024px
+   ============================================================ */
+@media (max-width: 1024px) {
+  .about {
+    flex-direction: column;
+  }
+  .about__image {
+    width: 100%;
+    height: 360px;
+  }
+  .about__text {
+    width: 100%;
+    padding: 60px 48px;
+  }
+
+  .menu-teaser__tiles {
+    flex-direction: column;
+  }
+  .menu-teaser__tile {
+    width: 100%;
+  }
+
+  .wine {
+    flex-direction: column;
+  }
+  .wine__image {
+    width: 100%;
+    height: 320px;
+  }
+  .wine__text {
+    width: 100%;
+    padding: 60px 48px;
+  }
+}
+
+/* ============================================================
+   Responsive: ≤768px
+   ============================================================ */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 24px;
+  }
+
+  /* Nav: hamburger */
+  .nav__links {
+    display: none;
+  }
+  .nav__hamburger {
+    display: block;
+  }
+  .nav {
+    padding: 0 24px;
+  }
+
+  /* Hero */
+  .hero {
+    padding: 0 24px 48px;
+  }
+  .hero__headline {
+    font-size: clamp(40px, 8vw, 72px);
+  }
+
+  /* Ticker */
+  .ticker__track {
+    animation-duration: 20s;
+  }
+
+  /* About */
+  .about {
+    flex-direction: column;
+  }
+  .about__image {
+    width: 100%;
+    height: 300px;
+  }
+  .about__text {
+    width: 100%;
+    padding: 48px 24px;
+  }
+
+  /* What's On */
+  .whats-on {
+    padding: 70px 0;
+  }
+  .whats-on__featured {
+    flex-direction: column;
+  }
+  .whats-on__featured .whats-on__card-image {
+    width: 100%;
+    min-width: 100%;
+    height: 260px;
+    min-height: 260px;
+  }
+  .whats-on__featured .whats-on__card-body {
+    width: 100%;
+  }
+  .whats-on__grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Menu section */
+  .menu-section {
+    padding: 70px 0;
+  }
+  .menu-dish--featured {
+    flex-direction: column;
+    min-height: auto;
+  }
+  .menu-dish__image {
+    width: 100%;
+    height: 260px;
+  }
+  .menu-dish__image img {
+    min-height: 260px;
+  }
+  .menu-dish__content {
+    padding: 28px 0 0 0;
+  }
+  .menu-dish--offset {
+    padding-left: 0;
+  }
+
+  /* Menu teaser tiles */
+  .menu-teaser__tiles {
+    flex-direction: column;
+  }
+  .menu-teaser__tile {
+    width: 100%;
+  }
+
+  /* Private dining / Wine */
+  .wine {
+    flex-direction: column;
+  }
+  .wine__image {
+    width: 100%;
+    height: 280px;
+  }
+  .wine__text {
+    width: 100%;
+    padding: 48px 24px;
+  }
+
+  /* Footer */
+  .footer {
+    padding: 60px 24px 0;
+  }
+  .footer__grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  /* Promo tool panel */
+  .promo-tool__panel {
+    width: 100vw;
+    right: -110vw;
+  }
+}
+
+/* ============================================================
+   Responsive: ≤480px
+   ============================================================ */
+@media (max-width: 480px) {
+  .hero__headline {
+    font-size: clamp(32px, 9vw, 56px);
+  }
+  .hero {
+    padding: 0 24px 36px;
+  }
+  .whats-on {
+    padding: 50px 0;
+  }
+  .menu-section {
+    padding: 50px 0;
+  }
+  .about__text {
+    padding: 36px 24px;
+  }
+  .wine__text {
+    padding: 36px 24px;
+  }
+  .footer {
+    padding: 40px 24px 0;
+  }
+  .private-dining {
+    min-height: 360px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     Announcement Bar (hidden by default, shown on publish)
+     ============================================================ -->
+<div class="announcement-bar" id="announcementBar">
+  <span class="announcement-bar__text" id="announcementText"></span>
+  <a href="#" class="announcement-bar__link">Book now &rarr;</a>
+  <button class="announcement-bar__dismiss" onclick="document.getElementById('announcementBar').classList.remove('announcement-bar--visible')">&times;</button>
+</div>
+
+<!-- ============================================================
+     1. Navigation
+     ============================================================ -->
+<nav class="nav" id="mainNav">
+  <a href="#" class="nav__wordmark">The Colville</a>
+  <ul class="nav__links">
+    <li><a href="#menu-teaser">Menu</a></li>
+    <li><a href="#whats-on">Reservations</a></li>
+    <li><a href="#private-dining">Private Dining</a></li>
+    <li><a href="#wine">Wine</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#footer">Contact</a></li>
+    <li><a href="#" class="nav__reserve">Reserve</a></li>
+  </ul>
+  <button class="nav__hamburger" id="navHamburger" onclick="openMobileNav()">&#9776;</button>
+</nav>
+
+<!-- Mobile Nav Overlay -->
+<div class="mobile-nav-overlay" id="mobileNavOverlay">
+  <button class="mobile-nav-overlay__close" onclick="closeMobileNav()">&times;</button>
+  <a href="#menu-teaser" onclick="closeMobileNav()">Menu</a>
+  <a href="#whats-on" onclick="closeMobileNav()">Reservations</a>
+  <a href="#private-dining" onclick="closeMobileNav()">Private Dining</a>
+  <a href="#wine" onclick="closeMobileNav()">Wine</a>
+  <a href="#about" onclick="closeMobileNav()">About</a>
+  <a href="#footer" onclick="closeMobileNav()">Contact</a>
+  <a href="#" class="nav__reserve" onclick="closeMobileNav()">Reserve</a>
+</div>
+
+<!-- ============================================================
+     2. Hero
+     ============================================================ -->
+<section class="hero" id="hero">
+  <div class="hero__bg"></div>
+  <div class="hero__content">
+    <p class="hero__eyebrow">Notting Hill &mdash; Kitchen &amp; Bar</p>
+    <h1 class="hero__headline">
+      Seasonal.<br>
+      <em>Simple.</em> Exceptional.
+    </h1>
+    <div class="hero__ctas">
+      <a href="#" class="hero__cta-btn">Reserve a table</a>
+      <a href="#menu-teaser" class="hero__cta-link">View menu &rarr;</a>
+    </div>
+  </div>
+  <div class="hero__scroll">
+    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+  </div>
+</section>
+
+<!-- ============================================================
+     3. Scrolling Ticker / Marquee
+     ============================================================ -->
+<div class="ticker" id="ticker">
+  <div class="ticker__track" id="tickerTrack">
+    <span class="ticker__text" id="tickerText">MIDWEEK KITCHEN TABLE &nbsp;&mdash;&nbsp; CHEF'S TASTING MENU &nbsp;&mdash;&nbsp; TUESDAY TO THURSDAY &nbsp;&mdash;&nbsp; &pound;45 PER PERSON &nbsp;&mdash;&nbsp; BOOK YOUR TABLE NOW &nbsp;&mdash;&nbsp; </span>
+    <span class="ticker__text" id="tickerTextDupe">MIDWEEK KITCHEN TABLE &nbsp;&mdash;&nbsp; CHEF'S TASTING MENU &nbsp;&mdash;&nbsp; TUESDAY TO THURSDAY &nbsp;&mdash;&nbsp; &pound;45 PER PERSON &nbsp;&mdash;&nbsp; BOOK YOUR TABLE NOW &nbsp;&mdash;&nbsp; </span>
+  </div>
+</div>
+
+<!-- ============================================================
+     4. Introduction / About
+     ============================================================ -->
+<section class="about fade-in-section" id="about">
+  <div class="about__image">
+    <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=1200&q=80" alt="The Colville interior">
+  </div>
+  <div class="about__text">
+    <p class="section-label">About The Colville</p>
+    <div class="about__rule"></div>
+    <h2 class="about__headline">A kitchen built on restraint.</h2>
+    <p class="about__subline"><em>Seasonal British cooking with a ruthless commitment to simplicity.</em></p>
+    <div class="about__body">
+      <p>The Colville opened in Notting Hill in 2019 with a simple idea: strip back everything that doesn't need to be there and let the produce speak. The menu changes weekly, driven by what's best at the market that morning. No foam. No theatre. Just food that tastes like itself.</p>
+      <p>Behind the copper-top bar and open kitchen pass, the team works with a short roster of British growers, fishermen, and foragers. The wine list is equally restrained — forty bottles, mostly natural, all chosen because they belong at this table.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     5. What's On
+     ============================================================ -->
+<section class="whats-on fade-in-section" id="whats-on" style="min-height: 800px;">
+  <div class="container">
+    <div class="whats-on__header">
+      <p class="section-label">What's On</p>
+      <p class="section-subline"><em>Dinners, events, and special menus worth knowing about.</em></p>
+    </div>
+    <div class="whats-on__list" id="whatsOnList">
+      <!-- Featured promo card -->
+      <div class="whats-on__featured whats-on__card" id="defaultPromoCard">
+        <div class="whats-on__card-image">
+          <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=900&q=80" alt="Midweek Kitchen Table">
+        </div>
+        <div class="whats-on__card-body">
+          <span class="whats-on__card-label">Special Menu</span>
+          <h3 class="whats-on__card-title">Midweek Kitchen Table</h3>
+          <p class="whats-on__card-desc">Chef's 5-course tasting menu, Tuesday to Thursday</p>
+          <span class="whats-on__card-price">&pound;45pp</span>
+          <span class="whats-on__card-dates">Available until end of March</span>
+          <a href="#" class="whats-on__card-cta">Book now &rarr;</a>
+        </div>
+      </div>
+
+      <!-- Bottom row: two equal cards -->
+      <div class="whats-on__grid">
+        <div class="whats-on__card">
+          <div class="whats-on__card-image">
+            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=800&q=80" alt="Sunday Roast & Cellar">
+          </div>
+          <div class="whats-on__card-body">
+            <span class="whats-on__card-label">Sunday Special</span>
+            <h3 class="whats-on__card-title">Sunday Roast &amp; Cellar</h3>
+            <p class="whats-on__card-desc">Three courses of modern British Sunday lunch with matched wines from our cellar list</p>
+            <span class="whats-on__card-price">&pound;55pp including wine flight</span>
+            <span class="whats-on__card-dates">Every Sunday, 12pm&ndash;5pm</span>
+            <a href="#" class="whats-on__card-cta">Reserve Sunday &rarr;</a>
+          </div>
+        </div>
+        <div class="whats-on__card">
+          <div class="whats-on__card-image">
+            <img src="https://images.unsplash.com/photo-1581299894007-aaa50297cf16?w=800&q=80" alt="The Kitchen Counter">
+          </div>
+          <div class="whats-on__card-body">
+            <span class="whats-on__card-label">Chef's Counter</span>
+            <h3 class="whats-on__card-title">The Kitchen Counter</h3>
+            <p class="whats-on__card-desc">Six seats at the pass. Watch the kitchen at work while we cook directly for you &mdash; a seven-course menu built around what arrived that morning</p>
+            <span class="whats-on__card-price">&pound;75pp</span>
+            <span class="whats-on__card-dates">Friday evenings only. Very limited availability.</span>
+            <a href="#" class="whats-on__card-cta">Join the Waitlist &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     6. Menu Teaser
+     ============================================================ -->
+<section class="menu-section fade-in-section" id="menu-teaser">
+  <div class="container">
+    <div class="menu-section__header">
+      <p class="section-label">The Menu</p>
+      <p class="section-subline"><em>A short list. Every dish earns its place.</em></p>
+    </div>
+    <p class="menu-section__intro">Our menu changes with the seasons and the market. Below, a flavour of what's on at the moment.</p>
+
+    <div class="menu-section__dishes">
+      <!-- Dish 1: Featured with image -->
+      <div class="menu-dish menu-dish--featured">
+        <div class="menu-dish__image">
+          <img src="https://images.unsplash.com/photo-1611489142329-b8d6f8ee2828?w=800&q=80" alt="Aged Hereford Beef Tartare">
+        </div>
+        <div class="menu-dish__content">
+          <span class="menu-dish__label">From the Kitchen</span>
+          <h3 class="menu-dish__name">Aged Hereford Beef Tartare</h3>
+          <p class="menu-dish__desc">Cured egg yolk, pickled walnut, rye cracker, smoked bone marrow butter</p>
+          <span class="menu-dish__price">&pound;16</span>
+        </div>
+      </div>
+
+      <!-- Dish 2: Offset, no image -->
+      <div class="menu-dish menu-dish--offset">
+        <div class="menu-dish__content menu-dish--text-only">
+          <span class="menu-dish__label">From the Pass</span>
+          <h3 class="menu-dish__name">Cornish Day Boat Turbot</h3>
+          <p class="menu-dish__desc">Brown butter, sea herbs, charred leek, clam broth</p>
+          <span class="menu-dish__price">&pound;38</span>
+        </div>
+      </div>
+
+      <!-- Dish 3: No image -->
+      <div class="menu-dish">
+        <div class="menu-dish__content menu-dish--text-only">
+          <span class="menu-dish__label">From the Larder</span>
+          <h3 class="menu-dish__name">Valrhona Chocolate Delice</h3>
+          <p class="menu-dish__desc">Salted caramel, toasted hazelnut praline, cr&egrave;me fra&icirc;che sorbet</p>
+          <span class="menu-dish__price">&pound;12</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-section__cta-block">
+      <a href="#" class="menu-section__cta-link">View the full menu &rarr;</a>
+      <p class="menu-section__cta-note"><em>Menu changes weekly. Dietary requirements accommodated with pleasure.</em></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     7. Private Dining
+     ============================================================ -->
+<section class="private-dining fade-in-section" id="private-dining">
+  <div class="private-dining__bg"></div>
+  <div class="private-dining__content">
+    <p class="private-dining__label">Private Dining</p>
+    <h2 class="private-dining__headline">For parties of eight to twenty.</h2>
+    <p class="private-dining__subline"><em>A room to yourselves. A menu written for the occasion.</em></p>
+    <a href="#" class="private-dining__cta">Enquire about availability</a>
+  </div>
+</section>
+
+<!-- ============================================================
+     7b. Wine
+     ============================================================ -->
+<section class="wine fade-in-section" id="wine">
+  <div class="wine__image">
+    <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80" alt="Wine selection">
+  </div>
+  <div class="wine__text">
+    <div class="wine__rule"></div>
+    <h2 class="wine__headline">An honest wine list.</h2>
+    <div class="wine__body">
+      <p>Forty bottles, mostly natural, all from small producers who care as much as we do. The list changes with the seasons — biodynamic Burgundy in winter, skin-contact whites when the sun comes out. Our sommelier is here to guide, never to lecture. Ask for a glass of whatever's open — there's always something worth trying.</p>
+    </div>
+    <a href="#" class="wine__cta">Browse the cellar &rarr;</a>
+  </div>
+</section>
+
+<!-- ============================================================
+     8. Footer
+     ============================================================ -->
+<footer class="footer" id="footer">
+  <div class="container">
+  <div class="footer__grid">
+    <div class="footer__brand">
+      <p class="footer__logo">The Colville</p>
+      <p class="footer__tagline"><em>Kitchen &amp; Bar, Notting Hill</em></p>
+      <div class="footer__social">
+        <a href="#" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </a>
+        <a href="#" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div>
+      <h4>Navigate</h4>
+      <ul class="footer__nav-links">
+        <li><a href="#menu-teaser">Menu</a></li>
+        <li><a href="#whats-on">Reservations</a></li>
+        <li><a href="#private-dining">Private Dining</a></li>
+        <li><a href="#wine">Wine</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Visit</h4>
+      <div class="footer__address">
+        <p>23 Colville Road<br>Notting Hill, London<br>W11 2BS</p>
+      </div>
+      <div class="footer__hours">
+        <p>Tue&ndash;Sat 12:00&ndash;15:00, 18:00&ndash;23:00<br>Sun 12:00&ndash;17:00<br>Mon Closed</p>
+      </div>
+    </div>
+    <div>
+      <h4>Stay in touch</h4>
+      <p class="footer__newsletter-label">Seasonal menus, events, and the occasional glass recommendation.</p>
+      <div class="footer__newsletter-form">
+        <input type="email" placeholder="Your email">
+        <button aria-label="Subscribe">&rarr;</button>
+      </div>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <p>&copy; 2026 The Colville &mdash; Kitchen &amp; Bar. All rights reserved.</p>
+  </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     Promo Tool
+     ============================================================ -->
+<!-- Tab toggle -->
+<div class="promo-tool__tab" id="promoTab" onclick="openPromoPanel()">PROMO TOOL &#9889;</div>
+
+<!-- Backdrop -->
+<div class="promo-tool__backdrop" id="promoBackdrop" onclick="closePromoPanel()"></div>
+
+<!-- Panel -->
+<div class="promo-tool__panel" id="promoPanel">
+  <div class="promo-tool__flash" id="promoFlash"></div>
+
+  <!-- Header -->
+  <div class="promo-tool__header">
+    <p class="promo-tool__header-label">Instant Promo Tool</p>
+    <p class="promo-tool__header-title"><em>Publish everywhere. Instantly.</em></p>
+    <button class="promo-tool__close" onclick="closePromoPanel()">&times;</button>
+  </div>
+
+  <!-- Body -->
+  <div class="promo-tool__body">
+
+    <!-- Form State -->
+    <div class="promo-tool__form" id="promoForm">
+      <div class="promo-tool__form-group">
+        <label class="promo-tool__form-label">Promo title</label>
+        <input type="text" class="promo-tool__form-input" id="promoTitle" placeholder="e.g. Midweek Kitchen Table">
+      </div>
+      <div class="promo-tool__form-group">
+        <label class="promo-tool__form-label">Description</label>
+        <textarea class="promo-tool__form-textarea" id="promoDesc" rows="3" placeholder="e.g. Chef's 5-course tasting menu, Tuesday to Thursday"></textarea>
+      </div>
+      <div class="promo-tool__form-group">
+        <label class="promo-tool__form-label">Price / Offer</label>
+        <input type="text" class="promo-tool__form-input" id="promoPrice" placeholder="e.g. £45pp">
+      </div>
+      <div class="promo-tool__form-group">
+        <label class="promo-tool__form-label">Dates</label>
+        <input type="text" class="promo-tool__form-input" id="promoDates" placeholder="e.g. Available until end of March">
+      </div>
+      <div class="promo-tool__form-group">
+        <label class="promo-tool__form-label">Call to Action</label>
+        <input type="text" class="promo-tool__form-input" id="promoCta" placeholder="e.g. Book Now">
+      </div>
+      <div class="promo-tool__form-group">
+        <label class="promo-tool__form-label">Tone of Voice</label>
+        <div class="promo-tool__tone-grid">
+          <button class="promo-tool__tone-btn promo-tool__tone-btn--active" data-tone="refined" onclick="selectTone(this)">Refined &amp; Elegant</button>
+          <button class="promo-tool__tone-btn" data-tone="warm" onclick="selectTone(this)">Warm &amp; Inviting</button>
+          <button class="promo-tool__tone-btn" data-tone="bold" onclick="selectTone(this)">Bold &amp; Playful</button>
+          <button class="promo-tool__tone-btn" data-tone="casual" onclick="selectTone(this)">Casual &amp; Friendly</button>
+        </div>
+      </div>
+      <button class="promo-tool__publish" id="publishBtn" onclick="publishPromo()">Publish Promo &rarr;</button>
+    </div>
+
+    <!-- Output State -->
+    <div class="promo-tool__output" id="promoOutput">
+      <div class="output__status">
+        <span class="output__dot"></span>
+        <span class="output__status-text">Live &mdash; Your copy is ready</span>
+      </div>
+      <p class="output__subline"><em>Your promo is now live on the site.</em></p>
+
+      <div class="output__tabs">
+        <button class="output__tab output__tab--active" data-tab="instagram" onclick="switchTab(this)">Instagram</button>
+        <button class="output__tab" data-tab="facebook" onclick="switchTab(this)">Facebook</button>
+        <button class="output__tab" data-tab="email" onclick="switchTab(this)">Email</button>
+      </div>
+
+      <div class="output__tab-content output__tab-content--active" id="tab-instagram">
+        <div class="output__copy-block">
+          <div class="output__copy-text" id="copy-instagram"></div>
+        </div>
+        <p class="output__char-count" id="count-instagram"></p>
+        <button class="output__copy-btn" onclick="copyToClipboard('instagram')">Copy to clipboard</button>
+      </div>
+
+      <div class="output__tab-content" id="tab-facebook">
+        <div class="output__copy-block">
+          <div class="output__copy-text" id="copy-facebook"></div>
+        </div>
+        <p class="output__char-count" id="count-facebook"></p>
+        <button class="output__copy-btn" onclick="copyToClipboard('facebook')">Copy to clipboard</button>
+      </div>
+
+      <div class="output__tab-content" id="tab-email">
+        <div class="output__copy-block">
+          <div class="output__copy-text" id="copy-email"></div>
+        </div>
+        <p class="output__char-count" id="count-email"></p>
+        <button class="output__copy-btn" onclick="copyToClipboard('email')">Copy to clipboard</button>
+      </div>
+
+      <button class="output__reset" onclick="resetForm()">&larr; Publish another promo</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================================
+     JavaScript
+     ============================================================ -->
+<script>
+/* ============================================================
+   Tone templates
+   ============================================================ */
+const toneTemplates = {
+  refined: {
+    instagram: (d) => `Something special this week at The Colville. ${d.title} — ${d.description}. ${d.price}. ${d.dates}. Link in bio to reserve your place.\n\n#TheColville #NottingHill #LondonDining #SeasonalBritish #FineDining`,
+    facebook: (d) => `We're pleased to announce ${d.title} — ${d.description}. ${d.price} per person. ${d.dates}.\n\nReservations are limited. We'd love to see you.`,
+    email: (d) => `Subject: A note from The Colville: ${d.title}\n\nDear Guest,\n\nWe're delighted to introduce ${d.title}. ${d.description}, priced at ${d.price}. ${d.dates}.\n\nTo reserve your place, please visit our website. We look forward to welcoming you.\n\nThe Colville Team`
+  },
+  warm: {
+    instagram: (d) => `Join us for something a little special 🍽 ${d.title} is here — ${d.description}. ${d.price} and well worth it. ${d.dates}. Come and see us! 👇\n\n#TheColville #NottingHill #LondonEats #WeekendPlans #FoodLovers`,
+    facebook: (d) => `We've been looking forward to sharing this one! ${d.title} is now available — ${d.description}. Just ${d.price}. ${d.dates}. We'd absolutely love to have you in.`,
+    email: (d) => `Subject: You're going to love this — ${d.title}\n\nHi there,\n\nWe have something lovely to share with you. ${d.title} is our newest special — ${d.description}. It's ${d.price} and available ${d.dates}.\n\nWe'd love to see you, so grab a table while you can!\n\nWith warmth, The Colville`
+  },
+  bold: {
+    instagram: (d) => `RIGHT. Listen up. 👀 ${d.title} is a thing now. ${d.description}. ${d.price}. ${d.dates}. Don't be the last to know. Book it. 🔥\n\n#TheColville #NottingHill #LondonFood #EatDrinkRepeat #TreatYourself`,
+    facebook: (d) => `We've gone and done it again. ${d.title} — ${d.description}. ${d.price}. ${d.dates}. Don't overthink it. Just come.`,
+    email: (d) => `Subject: 👀 ${d.title} — you need to know about this\n\nQuick one.\n\n${d.title}. ${d.description}. ${d.price}. ${d.dates}.\n\nThat's it. That's the email. Book now before it sells out.\n\nThe Colville 🔥`
+  },
+  casual: {
+    instagram: (d) => `Hey! Just wanted to let you know — ${d.title} is on. ${d.description}. Only ${d.price}. ${d.dates}. Come say hi! 😊\n\n#TheColville #NottingHill #LondonDining #EatLocal #WeekdayTreat`,
+    facebook: (d) => `Hey everyone! Quick update — ${d.title} is now available. ${d.description}. It's ${d.price} and running ${d.dates}. Hope to see some of you in!`,
+    email: (d) => `Subject: Quick heads up — ${d.title} is here!\n\nHey!\n\nJust wanted to let you know about ${d.title}. ${d.description}. It's ${d.price} and available ${d.dates}. Come in if you fancy it!\n\nThanks,\nThe Colville team`
+  }
+};
+
+/* ============================================================
+   State
+   ============================================================ */
+let selectedTone = 'refined';
+let generatedCopy = { instagram: '', facebook: '', email: '' };
+
+/* ============================================================
+   Navigation scroll behaviour
+   ============================================================ */
+const nav = document.getElementById('mainNav');
+
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 80) {
+    nav.classList.add('nav--scrolled');
+  } else {
+    nav.classList.remove('nav--scrolled');
+  }
+});
+
+/* ============================================================
+   Fade-in on scroll (IntersectionObserver)
+   ============================================================ */
+const fadeObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('is-visible');
+      fadeObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.fade-in-section').forEach((el) => {
+  fadeObserver.observe(el);
+});
+
+/* ============================================================
+   Promo Tool — Panel open/close
+   ============================================================ */
+function openPromoPanel() {
+  document.getElementById('promoPanel').classList.add('promo-tool__panel--open');
+  document.getElementById('promoBackdrop').classList.add('promo-tool__backdrop--visible');
+  document.getElementById('promoTab').classList.add('promo-tool__tab--hidden');
+}
+
+function closePromoPanel() {
+  document.getElementById('promoPanel').classList.remove('promo-tool__panel--open');
+  document.getElementById('promoBackdrop').classList.remove('promo-tool__backdrop--visible');
+  document.getElementById('promoTab').classList.remove('promo-tool__tab--hidden');
+}
+
+/* Auto-expand after 1.5s on first load */
+setTimeout(() => {
+  openPromoPanel();
+}, 1500);
+
+/* ============================================================
+   Tone selector
+   ============================================================ */
+function selectTone(btn) {
+  document.querySelectorAll('.promo-tool__tone-btn').forEach((b) => b.classList.remove('promo-tool__tone-btn--active'));
+  btn.classList.add('promo-tool__tone-btn--active');
+  selectedTone = btn.dataset.tone;
+}
+
+/* ============================================================
+   Publish Promo — the magic moment
+   ============================================================ */
+function publishPromo() {
+  const title = document.getElementById('promoTitle').value.trim() || 'Untitled Promo';
+  const description = document.getElementById('promoDesc').value.trim() || 'A special experience at The Colville';
+  const price = document.getElementById('promoPrice').value.trim() || 'See menu';
+  const dates = document.getElementById('promoDates').value.trim() || 'Limited availability';
+  const cta = document.getElementById('promoCta').value.trim() || 'Book Now';
+
+  const promoData = { title, description, price, dates, cta };
+  const publishBtn = document.getElementById('publishBtn');
+
+  /* Step 1 (0ms): Button pulse */
+  publishBtn.textContent = 'Publishing\u2026';
+  publishBtn.classList.add('promo-tool__publish--publishing');
+
+  /* Step 2 (400ms): Flash */
+  setTimeout(() => {
+    const flash = document.getElementById('promoFlash');
+    flash.style.transition = 'opacity 200ms ease';
+    flash.style.opacity = '0.2';
+    setTimeout(() => { flash.style.opacity = '0'; }, 200);
+  }, 400);
+
+  /* Step 3 (600ms): Panel collapses */
+  setTimeout(() => {
+    closePromoPanel();
+  }, 600);
+
+  /* Step 4 (800ms): Update ticker + announcement bar + scroll */
+  setTimeout(() => {
+    updateTicker(promoData);
+    showAnnouncementBar(promoData);
+    document.getElementById('whats-on').scrollIntoView({ behavior: 'smooth' });
+  }, 800);
+
+  /* Step 5 (1200ms): New promo card appears */
+  setTimeout(() => {
+    addPromoCard(promoData);
+  }, 1200);
+
+  /* Step 6 (1800ms): Re-expand panel with output state */
+  setTimeout(() => {
+    generateCopy(promoData);
+    showOutputState();
+    openPromoPanel();
+    publishBtn.textContent = 'Publish Promo \u2192';
+    publishBtn.classList.remove('promo-tool__publish--publishing');
+  }, 1800);
+}
+
+/* ============================================================
+   Update the ticker
+   ============================================================ */
+function updateTicker(data) {
+  const tickerContent = `${data.title.toUpperCase()} &nbsp;&mdash;&nbsp; ${data.description.toUpperCase()} &nbsp;&mdash;&nbsp; ${data.price.toUpperCase()} &nbsp;&mdash;&nbsp; ${data.dates.toUpperCase()} &nbsp;&mdash;&nbsp; BOOK YOUR TABLE NOW &nbsp;&mdash;&nbsp; `;
+  document.getElementById('tickerText').innerHTML = tickerContent;
+  document.getElementById('tickerTextDupe').innerHTML = tickerContent;
+}
+
+/* ============================================================
+   Announcement bar
+   ============================================================ */
+function showAnnouncementBar(data) {
+  const bar = document.getElementById('announcementBar');
+  document.getElementById('announcementText').textContent = `${data.title} — ${data.description} — ${data.price}`;
+  bar.classList.add('announcement-bar--visible');
+}
+
+/* ============================================================
+   Add a new promo card to What's On
+   ============================================================ */
+function addPromoCard(data) {
+  const list = document.getElementById('whatsOnList');
+  const grid = list.querySelector('.whats-on__grid');
+
+  const card = document.createElement('div');
+  card.className = 'whats-on__featured whats-on__card whats-on__card--entering whats-on__card--highlight';
+  card.innerHTML = `
+    <div class="whats-on__card-image">
+      <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=900&q=80" alt="${data.title}">
+    </div>
+    <div class="whats-on__card-body">
+      <span class="whats-on__card-label">Special Menu</span>
+      <h3 class="whats-on__card-title">${data.title}</h3>
+      <p class="whats-on__card-desc">${data.description}</p>
+      <span class="whats-on__card-price">${data.price}</span>
+      <span class="whats-on__card-dates">${data.dates}</span>
+      <a href="#" class="whats-on__card-cta">${data.cta} &rarr;</a>
+    </div>
+  `;
+
+  list.insertBefore(card, grid || list.firstChild);
+
+  /* Trigger animation: entering -> visible */
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      card.classList.remove('whats-on__card--entering');
+    });
+  });
+
+  /* Remove highlight glow after 2s */
+  setTimeout(() => {
+    card.classList.remove('whats-on__card--highlight');
+  }, 2000);
+}
+
+/* ============================================================
+   Generate copy for all platforms
+   ============================================================ */
+function generateCopy(data) {
+  const templates = toneTemplates[selectedTone];
+  generatedCopy.instagram = templates.instagram(data);
+  generatedCopy.facebook = templates.facebook(data);
+  generatedCopy.email = templates.email(data);
+
+  document.getElementById('copy-instagram').textContent = generatedCopy.instagram;
+  document.getElementById('copy-facebook').textContent = generatedCopy.facebook;
+  document.getElementById('copy-email').textContent = generatedCopy.email;
+
+  document.getElementById('count-instagram').textContent = `${generatedCopy.instagram.length} characters`;
+  document.getElementById('count-facebook').textContent = `${generatedCopy.facebook.length} characters`;
+  document.getElementById('count-email').textContent = `${generatedCopy.email.length} characters`;
+}
+
+/* ============================================================
+   Show output state, hide form
+   ============================================================ */
+function showOutputState() {
+  document.getElementById('promoForm').classList.add('promo-tool__form--hidden');
+  document.getElementById('promoOutput').classList.add('promo-tool__output--visible');
+}
+
+/* ============================================================
+   Tab switching in output
+   ============================================================ */
+function switchTab(btn) {
+  document.querySelectorAll('.output__tab').forEach((t) => t.classList.remove('output__tab--active'));
+  document.querySelectorAll('.output__tab-content').forEach((c) => c.classList.remove('output__tab-content--active'));
+  btn.classList.add('output__tab--active');
+  document.getElementById('tab-' + btn.dataset.tab).classList.add('output__tab-content--active');
+}
+
+/* ============================================================
+   Copy to clipboard
+   ============================================================ */
+function copyToClipboard(platform) {
+  const text = generatedCopy[platform];
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = event.target;
+    const original = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(() => { btn.textContent = original; }, 1500);
+  });
+}
+
+/* ============================================================
+   Reset form
+   ============================================================ */
+/* ============================================================
+   Mobile Nav
+   ============================================================ */
+function openMobileNav() {
+  document.getElementById('mobileNavOverlay').classList.add('mobile-nav-overlay--open');
+}
+
+function closeMobileNav() {
+  document.getElementById('mobileNavOverlay').classList.remove('mobile-nav-overlay--open');
+}
+
+function resetForm() {
+  document.getElementById('promoForm').classList.remove('promo-tool__form--hidden');
+  document.getElementById('promoOutput').classList.remove('promo-tool__output--visible');
+  document.getElementById('promoTitle').value = '';
+  document.getElementById('promoDesc').value = '';
+  document.getElementById('promoPrice').value = '';
+  document.getElementById('promoDates').value = '';
+  document.getElementById('promoCta').value = '';
+
+  /* Reset tone to default */
+  document.querySelectorAll('.promo-tool__tone-btn').forEach((b) => b.classList.remove('promo-tool__tone-btn--active'));
+  document.querySelector('[data-tone="refined"]').classList.add('promo-tool__tone-btn--active');
+  selectedTone = 'refined';
+
+  /* Reset tab to Instagram */
+  document.querySelectorAll('.output__tab').forEach((t) => t.classList.remove('output__tab--active'));
+  document.querySelectorAll('.output__tab-content').forEach((c) => c.classList.remove('output__tab-content--active'));
+  document.querySelector('[data-tab="instagram"]').classList.add('output__tab--active');
+  document.getElementById('tab-instagram').classList.add('output__tab-content--active');
+}
+</script>
+
+</body>
+</html>
