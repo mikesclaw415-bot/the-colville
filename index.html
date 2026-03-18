@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer-when-downgrade">
 <title>The Colville — Kitchen & Bar | Notting Hill, London</title>
 
 <!-- Google Fonts -->
@@ -955,7 +956,7 @@ button {
   align-items: center;
   justify-content: center;
   gap: 20px;
-  transition: height 300ms ease, background 800ms ease;
+  transition: height 300ms ease, background 400ms ease;
 }
 
 .announcement-bar--visible {
@@ -1845,18 +1846,18 @@ button {
 }
 
 /* ============================================================
-   Spotlight Overlay
+   Spotlight (filter-based dimming — no z-index issues)
    ============================================================ */
 #spotlight-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0);
-  pointer-events: none;
-  z-index: 500;
-  transition: background 600ms ease;
+  display: none;
 }
-#spotlight-overlay.active {
-  background: rgba(0, 0, 0, 0.55);
+.spotlight-dim {
+  filter: brightness(0.4);
+  transition: filter 500ms ease;
+}
+.spotlight-bright {
+  filter: brightness(1);
+  transition: filter 500ms ease;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
@@ -1971,7 +1972,7 @@ button {
       <!-- Featured promo card -->
       <div class="whats-on__featured whats-on__card" id="defaultPromoCard">
         <div class="whats-on__card-image">
-          <img src="https://images.pexels.com/photos/3437689/pexels-photo-3437689.jpeg?w=900&q=80" alt="Midweek Chef's Table">
+          <img src="https://images.pexels.com/photos/3437689/pexels-photo-3437689.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Midweek Chef's Table">
         </div>
         <div class="whats-on__card-body">
           <span class="whats-on__card-label">Special Menu</span>
@@ -1987,7 +1988,7 @@ button {
       <div class="whats-on__grid">
         <div class="whats-on__card">
           <div class="whats-on__card-image">
-            <img src="https://images.pexels.com/photos/236887/pexels-photo-236887.jpeg?w=900&q=80" alt="Sunday Roast & Cellar">
+            <img src="https://images.pexels.com/photos/236887/pexels-photo-236887.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Sunday Roast & Cellar">
           </div>
           <div class="whats-on__card-body">
             <span class="whats-on__card-label">Sunday Special</span>
@@ -2000,7 +2001,7 @@ button {
         </div>
         <div class="whats-on__card">
           <div class="whats-on__card-image">
-            <img src="https://images.pexels.com/photos/33474128/pexels-photo-33474128.jpeg?w=900&q=80" alt="The Kitchen Counter">
+            <img src="https://images.pexels.com/photos/33474128/pexels-photo-33474128.jpeg?auto=compress&cs=tinysrgb&w=900" alt="The Kitchen Counter">
           </div>
           <div class="whats-on__card-body">
             <span class="whats-on__card-label">Chef's Counter</span>
@@ -2030,7 +2031,7 @@ button {
         <a href="#" class="menu-section__cta-link">VIEW THE MENU &rarr;</a>
       </div>
       <div class="menu-section__image">
-        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=900&q=80" alt="Seasonal dishes">
+        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=compress&cs=tinysrgb&w=900" alt="Seasonal dishes">
       </div>
     </div>
   </div>
@@ -2337,84 +2338,101 @@ function publishPromo() {
   const promoData = { title, description, price, dates, cta };
   const publishBtn = document.getElementById('publishBtn');
   const bar = document.getElementById('announcementBar');
-  const overlay = document.getElementById('spotlight-overlay');
+
+  /* Helper: get all direct children of body that should be dimmed */
+  function getBodySections() {
+    return Array.from(document.body.children).filter(el =>
+      el.id !== 'spotlight-overlay' && el.tagName !== 'SCRIPT'
+    );
+  }
+  function dimAll() {
+    getBodySections().forEach(el => { el.classList.add('spotlight-dim'); el.classList.remove('spotlight-bright'); });
+  }
+  function spotlightEl(el) {
+    el.classList.remove('spotlight-dim');
+    el.classList.add('spotlight-bright');
+  }
+  function undimAll() {
+    getBodySections().forEach(el => { el.classList.remove('spotlight-dim', 'spotlight-bright'); });
+  }
 
   publishBtn.textContent = 'Publishing\u2026';
   publishBtn.classList.add('promo-tool__publish--publishing');
 
-  /* 0ms: Panel closes, ticker updates silently */
+  /* 0ms: Panel closes, ticker updates */
   closePromoPanel();
   updateTicker(promoData);
 
-  /* 300ms: Scroll to top */
+  /* 200ms: Scroll to top */
   setTimeout(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, 300);
+  }, 200);
 
-  /* 1000ms: Overlay fades in, spotlight the announcement bar */
+  /* 800ms: Dim everything, spotlight announcement bar, bar → brass 400ms */
   setTimeout(() => {
     showAnnouncementBar(promoData);
-    overlay.classList.add('active');
-    bar.style.position = 'relative';
-    bar.style.zIndex = '600';
-    bar.style.transition = 'background 800ms ease';
+    dimAll();
+    spotlightEl(bar);
+    bar.style.transition = 'background 400ms ease';
     bar.style.background = 'rgba(184,150,106,0.75)';
-  }, 1000);
+  }, 800);
 
-  /* 2800ms: Bar fades back to normal */
+  /* 1800ms: Bar fades back to normal, 400ms */
   setTimeout(() => {
-    bar.style.transition = 'background 600ms ease';
+    bar.style.transition = 'background 400ms ease';
     bar.style.background = 'rgba(0,0,0,0.32)';
-  }, 2800);
+  }, 1800);
 
-  /* 3600ms: Overlay fades out, reset bar z-index */
+  /* 2400ms: Un-dim everything */
   setTimeout(() => {
-    overlay.classList.remove('active');
-    bar.style.zIndex = '';
-    bar.style.position = '';
-  }, 3600);
+    undimAll();
+  }, 2400);
 
-  /* 4400ms: Scroll to What's On section */
+  /* 3000ms: Scroll to What's On */
   setTimeout(() => {
     document.querySelector('.whats-on').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, 4400);
+  }, 3000);
 
-  /* 5200ms: Overlay fades in again, add and spotlight the new card */
+  /* 3800ms: Dim everything, add and spotlight the new card */
   setTimeout(() => {
-    overlay.classList.add('active');
+    dimAll();
     addPromoCard(promoData);
-  }, 5200);
+    const whatsOnSection = document.querySelector('.whats-on');
+    if (whatsOnSection) spotlightEl(whatsOnSection);
+  }, 3800);
 
-  /* 7000ms: Card shadow fades out */
+  /* 3900ms: Card glow/shadow applied (handled inside addPromoCard via rAF) */
+
+  /* 5400ms: Card shadow removed, 600ms ease */
   setTimeout(() => {
     const newCard = document.getElementById('whatsOnList').firstElementChild;
     if (newCard) {
       const cardBody = newCard.querySelector('.whats-on__card-body');
       if (cardBody) {
-        cardBody.style.transition = 'box-shadow 800ms ease';
+        cardBody.style.transition = 'box-shadow 600ms ease';
         cardBody.style.boxShadow = 'none';
       }
     }
-  }, 7000);
+  }, 5400);
 
-  /* 7800ms: Overlay fades out, reset card z-index */
+  /* 6000ms: Un-dim everything, reset card inline styles */
   setTimeout(() => {
-    overlay.classList.remove('active');
+    undimAll();
     const newCard = document.getElementById('whatsOnList').firstElementChild;
     if (newCard) {
       newCard.style.zIndex = '';
       newCard.style.position = '';
     }
-  }, 7800);
+  }, 6000);
 
-  /* 8600ms: Social copy panel slides in */
+  /* 6600ms: Social copy panel slides in */
   setTimeout(() => {
     generateCopy(promoData);
     showOutputState();
     openPromoPanel();
     publishBtn.textContent = 'Publish Promo \u2192';
     publishBtn.classList.remove('promo-tool__publish--publishing');
-  }, 8600);
+  }, 6600);
 }
 
 /* ============================================================
@@ -2449,7 +2467,7 @@ function addPromoCard(data) {
   card.style.zIndex = '600';
   card.innerHTML = `
     <div class="whats-on__card-image">
-      <img src="https://images.pexels.com/photos/12412205/pexels-photo-12412205.jpeg?w=900&q=80" alt="${data.title}">
+      <img src="https://images.pexels.com/photos/12412205/pexels-photo-12412205.jpeg?auto=compress&cs=tinysrgb&w=900" alt="${data.title}">
     </div>
     <div class="whats-on__card-body" style="background: #FFFFFF; will-change: box-shadow, opacity;">
       <span class="whats-on__card-label">Special Menu</span>
