@@ -446,7 +446,7 @@ button {
 }
 
 .whats-on__card--highlight .whats-on__card-body {
-  box-shadow: -4px 0 12px rgba(184, 150, 106, 0.4);
+  box-shadow: 0 8px 48px rgba(184, 150, 106, 0.2);
 }
 
 .whats-on__card-image {
@@ -475,8 +475,8 @@ button {
   flex-direction: column;
   justify-content: center;
   background: #FFFFFF;
-  transition: box-shadow 600ms ease, transform 600ms ease;
-  will-change: transform, opacity, box-shadow;
+  transition: box-shadow 800ms ease;
+  will-change: box-shadow, opacity;
 }
 
 .whats-on__card-label {
@@ -955,7 +955,7 @@ button {
   align-items: center;
   justify-content: center;
   gap: 20px;
-  transition: height 300ms ease;
+  transition: height 300ms ease, background 800ms ease;
 }
 
 .announcement-bar--visible {
@@ -1844,6 +1844,21 @@ button {
   }
 }
 
+/* ============================================================
+   Spotlight Overlay
+   ============================================================ */
+#spotlight-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0);
+  pointer-events: none;
+  z-index: 500;
+  transition: background 600ms ease;
+}
+#spotlight-overlay.active {
+  background: rgba(0, 0, 0, 0.55);
+}
+
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
   input, textarea, select {
     font-size: 16px !important;
@@ -1856,6 +1871,8 @@ button {
 <!-- ============================================================
      Announcement Bar (hidden by default, shown on publish)
      ============================================================ -->
+<div id="spotlight-overlay"></div>
+
 <div class="announcement-bar" id="announcementBar">
   <span class="announcement-bar__text" id="announcementText"></span>
   <a href="#" class="announcement-bar__link">Book now &rarr;</a>
@@ -1970,7 +1987,7 @@ button {
       <div class="whats-on__grid">
         <div class="whats-on__card">
           <div class="whats-on__card-image">
-            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=800&q=80" alt="Sunday Roast & Cellar">
+            <img src="https://images.pexels.com/photos/236887/pexels-photo-236887.jpeg?w=900&q=80" alt="Sunday Roast & Cellar">
           </div>
           <div class="whats-on__card-body">
             <span class="whats-on__card-label">Sunday Special</span>
@@ -2320,7 +2337,7 @@ function publishPromo() {
   const promoData = { title, description, price, dates, cta };
   const publishBtn = document.getElementById('publishBtn');
   const bar = document.getElementById('announcementBar');
-  const isMobile = window.innerWidth <= 768;
+  const overlay = document.getElementById('spotlight-overlay');
 
   publishBtn.textContent = 'Publishing\u2026';
   publishBtn.classList.add('promo-tool__publish--publishing');
@@ -2329,42 +2346,75 @@ function publishPromo() {
   closePromoPanel();
   updateTicker(promoData);
 
-  /* 100ms: Scroll to top, show announcement bar */
+  /* 300ms: Scroll to top */
+  setTimeout(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, 300);
+
+  /* 1000ms: Overlay fades in, spotlight the announcement bar */
   setTimeout(() => {
     showAnnouncementBar(promoData);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, 100);
+    overlay.classList.add('active');
+    bar.style.position = 'relative';
+    bar.style.zIndex = '600';
+    bar.style.transition = 'background 800ms ease';
+    bar.style.background = 'rgba(184,150,106,0.75)';
+  }, 1000);
 
-  /* 700ms: Announcement bar brightens to brass */
+  /* 2800ms: Bar fades back to normal */
   setTimeout(() => {
-    bar.style.transition = 'background 300ms ease';
-    bar.style.background = 'rgba(184,150,106,0.85)';
-  }, 700);
-
-  /* 1900ms: Announcement bar fades back */
-  setTimeout(() => {
-    bar.style.transition = 'background 400ms ease';
+    bar.style.transition = 'background 600ms ease';
     bar.style.background = 'rgba(0,0,0,0.32)';
-  }, 1900);
+  }, 2800);
 
-  /* 2500ms: Scroll to What's On section */
+  /* 3600ms: Overlay fades out, reset bar z-index */
+  setTimeout(() => {
+    overlay.classList.remove('active');
+    bar.style.zIndex = '';
+    bar.style.position = '';
+  }, 3600);
+
+  /* 4400ms: Scroll to What's On section */
   setTimeout(() => {
     document.querySelector('.whats-on').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, 2500);
+  }, 4400);
 
-  /* 3200ms: Prepend new card (hidden), then animate in */
+  /* 5200ms: Overlay fades in again, add and spotlight the new card */
   setTimeout(() => {
+    overlay.classList.add('active');
     addPromoCard(promoData);
-  }, 3200);
+  }, 5200);
 
-  /* 5500ms: Panel slides in showing output state */
+  /* 7000ms: Card shadow fades out */
+  setTimeout(() => {
+    const newCard = document.getElementById('whatsOnList').firstElementChild;
+    if (newCard) {
+      const cardBody = newCard.querySelector('.whats-on__card-body');
+      if (cardBody) {
+        cardBody.style.transition = 'box-shadow 800ms ease';
+        cardBody.style.boxShadow = 'none';
+      }
+    }
+  }, 7000);
+
+  /* 7800ms: Overlay fades out, reset card z-index */
+  setTimeout(() => {
+    overlay.classList.remove('active');
+    const newCard = document.getElementById('whatsOnList').firstElementChild;
+    if (newCard) {
+      newCard.style.zIndex = '';
+      newCard.style.position = '';
+    }
+  }, 7800);
+
+  /* 8600ms: Social copy panel slides in */
   setTimeout(() => {
     generateCopy(promoData);
     showOutputState();
     openPromoPanel();
     publishBtn.textContent = 'Publish Promo \u2192';
     publishBtn.classList.remove('promo-tool__publish--publishing');
-  }, 5500);
+  }, 8600);
 }
 
 /* ============================================================
@@ -2394,13 +2444,14 @@ function addPromoCard(data) {
   const card = document.createElement('div');
   card.className = 'whats-on__featured whats-on__card';
   card.style.opacity = '0';
-  card.style.transform = 'translateY(-16px)';
-  card.style.boxShadow = 'none';
+  card.style.transform = 'translateY(-12px)';
+  card.style.position = 'relative';
+  card.style.zIndex = '600';
   card.innerHTML = `
     <div class="whats-on__card-image">
-      <img src="https://images.pexels.com/photos/3437689/pexels-photo-3437689.jpeg?w=900&q=80" alt="${data.title}">
+      <img src="https://images.pexels.com/photos/12412205/pexels-photo-12412205.jpeg?w=900&q=80" alt="${data.title}">
     </div>
-    <div class="whats-on__card-body" style="background: #FFFFFF;">
+    <div class="whats-on__card-body" style="background: #FFFFFF; will-change: box-shadow, opacity;">
       <span class="whats-on__card-label">Special Menu</span>
       <h3 class="whats-on__card-title">${data.title}</h3>
       <p class="whats-on__card-desc">${data.description}</p>
@@ -2412,26 +2463,17 @@ function addPromoCard(data) {
 
   list.insertBefore(card, list.firstChild);
 
-  /* Animate in: opacity + translateY over 400ms */
+  /* Animate in: opacity 0→1, translateY(-12px→0), 500ms ease-out */
   requestAnimationFrame(() => {
-    card.style.transition = 'opacity 400ms ease-out, transform 400ms ease-out';
+    card.style.transition = 'opacity 500ms ease-out, transform 500ms ease-out';
     card.style.opacity = '1';
     card.style.transform = 'translateY(0)';
+
+    /* Simultaneously: warm subtle shadow on the card body */
+    const cardBody = card.querySelector('.whats-on__card-body');
+    cardBody.style.transition = 'box-shadow 500ms ease-out';
+    cardBody.style.boxShadow = '0 8px 48px rgba(184,150,106,0.2)';
   });
-
-  /* 400ms: Apply brass glow highlight */
-  setTimeout(() => {
-    card.style.transition = 'box-shadow 300ms ease, transform 300ms ease';
-    card.style.boxShadow = '0 0 0 3px rgba(184,150,106,0.8), 0 8px 32px rgba(184,150,106,0.3)';
-    card.style.transform = 'scale(1.015)';
-  }, 400);
-
-  /* 1900ms: Fade glow back to normal */
-  setTimeout(() => {
-    card.style.transition = 'box-shadow 600ms ease, transform 600ms ease';
-    card.style.boxShadow = 'none';
-    card.style.transform = 'scale(1)';
-  }, 1900);
 }
 
 /* ============================================================
