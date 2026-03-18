@@ -967,6 +967,32 @@ button {
   height: 48px;
 }
 
+@media (max-width: 768px) {
+  .announcement-bar {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 12px 48px 12px 16px;
+  }
+  .announcement-bar--visible {
+    height: auto;
+    min-height: 64px;
+  }
+  .announcement-bar__text {
+    font-size: 11px;
+    text-align: center;
+    line-height: 1.4;
+  }
+  .announcement-bar__link {
+    font-size: 11px;
+  }
+  .announcement-bar__dismiss {
+    top: 12px;
+    transform: none;
+  }
+}
+
 .announcement-bar__text {
   font-family: var(--font-body);
   font-weight: 400;
