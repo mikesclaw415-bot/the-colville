@@ -438,7 +438,8 @@ button {
   padding-bottom: 32px;
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 500ms ease, transform 500ms ease;
+  transition: opacity 500ms ease, transform 500ms ease, box-shadow 300ms ease-out;
+  will-change: transform, box-shadow;
 }
 
 .whats-on__card--entering {
@@ -956,7 +957,8 @@ button {
   align-items: center;
   justify-content: center;
   gap: 20px;
-  transition: height 300ms ease, background 400ms ease;
+  transition: height 300ms ease, background 400ms ease, transform 300ms ease-out, box-shadow 300ms ease-out;
+  will-change: transform, box-shadow;
 }
 
 .announcement-bar--visible {
@@ -1427,14 +1429,23 @@ button {
   gap: 0;
   margin-bottom: 40px;
   min-height: 360px;
+  align-items: stretch;
 }
 
 .whats-on__featured .whats-on__card-image {
   width: 45%;
   min-width: 45%;
-  height: 380px;
-  max-height: 380px;
+  align-self: stretch;
+  height: auto;
   overflow: hidden;
+}
+
+.whats-on__featured .whats-on__card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
 }
 
 .whats-on__featured .whats-on__card-body {
@@ -1847,20 +1858,6 @@ button {
   }
 }
 
-/* ============================================================
-   Spotlight (filter-based dimming — no z-index issues)
-   ============================================================ */
-#spotlight-overlay {
-  display: none;
-}
-.spotlight-dim {
-  filter: brightness(0.4);
-  transition: filter 500ms ease;
-}
-.spotlight-bright {
-  filter: brightness(1);
-  transition: filter 500ms ease;
-}
 
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
   input, textarea, select {
@@ -1874,8 +1871,6 @@ button {
 <!-- ============================================================
      Announcement Bar (hidden by default, shown on publish)
      ============================================================ -->
-<div id="spotlight-overlay"></div>
-
 <div class="announcement-bar" id="announcementBar">
   <span class="announcement-bar__text" id="announcementText"></span>
   <a href="#" class="announcement-bar__link">Book now &rarr;</a>
@@ -2341,27 +2336,10 @@ function publishPromo() {
   const publishBtn = document.getElementById('publishBtn');
   const bar = document.getElementById('announcementBar');
 
-  /* Helper: get all direct children of body that should be dimmed */
-  function getBodySections() {
-    return Array.from(document.body.children).filter(el =>
-      el.id !== 'spotlight-overlay' && el.tagName !== 'SCRIPT'
-    );
-  }
-  function dimAll() {
-    getBodySections().forEach(el => { el.classList.add('spotlight-dim'); el.classList.remove('spotlight-bright'); });
-  }
-  function spotlightEl(el) {
-    el.classList.remove('spotlight-dim');
-    el.classList.add('spotlight-bright');
-  }
-  function undimAll() {
-    getBodySections().forEach(el => { el.classList.remove('spotlight-dim', 'spotlight-bright'); });
-  }
-
   publishBtn.textContent = 'Publishing\u2026';
   publishBtn.classList.add('promo-tool__publish--publishing');
 
-  /* 0ms: Panel closes, ticker updates */
+  /* 0ms: Panel closes, ticker updates silently */
   closePromoPanel();
   updateTicker(promoData);
 
@@ -2370,76 +2348,59 @@ function publishPromo() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, 200);
 
-  /* 800ms: Dim all sections, announcement bar floats above as fixed element, bar → brass 400ms */
+  /* 800ms: Announcement bar scales up + shadow */
   setTimeout(() => {
     showAnnouncementBar(promoData);
-    getBodySections().forEach(el => {
-      el.classList.add('spotlight-dim');
-      el.classList.remove('spotlight-bright');
-    });
-    bar.style.transition = 'background 400ms ease';
-    bar.style.background = 'rgba(184,150,106,0.75)';
+    bar.style.transition = 'transform 300ms ease-out, box-shadow 300ms ease-out';
+    bar.style.transform = 'scale(1.02)';
+    bar.style.boxShadow = '0 4px 32px rgba(0,0,0,0.25)';
   }, 800);
 
-  /* 1800ms: Bar fades back to normal, 400ms */
+  /* 1600ms: Announcement bar resets */
   setTimeout(() => {
-    bar.style.transition = 'background 400ms ease';
-    bar.style.background = 'rgba(0,0,0,0.32)';
-  }, 1800);
+    bar.style.transition = 'transform 400ms ease, box-shadow 400ms ease';
+    bar.style.transform = 'scale(1)';
+    bar.style.boxShadow = 'none';
+  }, 1600);
 
-  /* 2400ms: Un-dim everything */
-  setTimeout(() => {
-    undimAll();
-  }, 2400);
-
-  /* 3000ms: Scroll to What's On */
+  /* 2200ms: Scroll to What's On section */
   setTimeout(() => {
     document.querySelector('.whats-on').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 2200);
+
+  /* 3000ms: New card animates in */
+  setTimeout(() => {
+    addPromoCard(promoData);
   }, 3000);
 
-  /* 3800ms: Dim everything EXCEPT the whats-on section, add new card */
-  setTimeout(() => {
-    getBodySections().forEach(el => {
-      if (el.id !== 'whats-on' && !el.classList.contains('whats-on')) {
-        el.classList.add('spotlight-dim');
-        el.classList.remove('spotlight-bright');
-      }
-    });
-    addPromoCard(promoData);
-  }, 3800);
-
-  /* 3900ms: Card glow/shadow applied (handled inside addPromoCard via rAF) */
-
-  /* 5400ms: Card shadow removed, 600ms ease */
+  /* 3500ms: New card scales up + shadow */
   setTimeout(() => {
     const newCard = document.getElementById('whatsOnList').firstElementChild;
     if (newCard) {
-      const cardBody = newCard.querySelector('.whats-on__card-body');
-      if (cardBody) {
-        cardBody.style.transition = 'box-shadow 600ms ease';
-        cardBody.style.boxShadow = 'none';
-      }
+      newCard.style.transition = 'transform 300ms ease-out, box-shadow 300ms ease-out';
+      newCard.style.transform = 'scale(1.02)';
+      newCard.style.boxShadow = '0 8px 40px rgba(0,0,0,0.18)';
     }
-  }, 5400);
+  }, 3500);
 
-  /* 6000ms: Un-dim everything, reset card inline styles */
+  /* 4800ms: New card resets */
   setTimeout(() => {
-    undimAll();
     const newCard = document.getElementById('whatsOnList').firstElementChild;
     if (newCard) {
-      newCard.style.zIndex = '';
-      newCard.style.position = '';
+      newCard.style.transition = 'transform 500ms ease, box-shadow 500ms ease';
+      newCard.style.transform = 'scale(1)';
+      newCard.style.boxShadow = 'none';
     }
-  }, 6000);
+  }, 4800);
 
-  /* 6600ms: Social copy panel slides in */
+  /* 5400ms: Social copy panel slides in */
   setTimeout(() => {
     generateCopy(promoData);
     showOutputState();
     openPromoPanel();
     publishBtn.textContent = 'Publish Promo \u2192';
     publishBtn.classList.remove('promo-tool__publish--publishing');
-  }, 6600);
+  }, 5400);
 }
 
 /* ============================================================
@@ -2470,13 +2431,11 @@ function addPromoCard(data) {
   card.className = 'whats-on__featured whats-on__card';
   card.style.opacity = '0';
   card.style.transform = 'translateY(-12px)';
-  card.style.position = 'relative';
-  card.style.zIndex = '600';
   card.innerHTML = `
-    <div class="whats-on__card-image" style="height: 280px; overflow: hidden;">
-      <img src="https://images.pexels.com/photos/12412205/pexels-photo-12412205.jpeg?auto=compress&cs=tinysrgb&w=900" alt="${data.title}" style="object-fit: cover; width: 100%; height: 100%;">
+    <div class="whats-on__card-image" style="align-self: stretch; overflow: hidden;">
+      <img src="https://images.pexels.com/photos/12412205/pexels-photo-12412205.jpeg?auto=compress&cs=tinysrgb&w=900" alt="${data.title}" style="width: 100%; height: 100%; object-fit: cover; object-position: center; display: block;">
     </div>
-    <div class="whats-on__card-body" style="background: #FFFFFF; will-change: box-shadow, opacity;">
+    <div class="whats-on__card-body" style="background: #FFFFFF;">
       <span class="whats-on__card-label">Special Menu</span>
       <h3 class="whats-on__card-title">${data.title}</h3>
       <p class="whats-on__card-desc">${data.description}</p>
@@ -2488,16 +2447,11 @@ function addPromoCard(data) {
 
   list.insertBefore(card, list.firstChild);
 
-  /* Animate in: opacity 0→1, translateY(-12px→0), 500ms ease-out */
+  /* Animate in: opacity 0→1, translateY(-12px→0), 400ms ease-out */
   requestAnimationFrame(() => {
-    card.style.transition = 'opacity 500ms ease-out, transform 500ms ease-out';
+    card.style.transition = 'opacity 400ms ease-out, transform 400ms ease-out';
     card.style.opacity = '1';
     card.style.transform = 'translateY(0)';
-
-    /* Simultaneously: warm subtle shadow on the card body */
-    const cardBody = card.querySelector('.whats-on__card-body');
-    cardBody.style.transition = 'box-shadow 500ms ease-out';
-    cardBody.style.boxShadow = '0 8px 48px rgba(184,150,106,0.2)';
   });
 }
 
