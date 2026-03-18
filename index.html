@@ -1438,9 +1438,10 @@ button {
 .whats-on__featured .whats-on__card-image {
   width: 45%;
   min-width: 45%;
-  align-self: stretch;
-  height: auto;
+  height: 360px;
+  max-height: 360px;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .whats-on__featured .whats-on__card-image img {
@@ -2361,19 +2362,21 @@ function publishPromo() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, 200);
 
-  /* 800ms: Announcement bar scales up + shadow */
+  /* 800ms: Announcement bar scales up + brass pulse */
   setTimeout(() => {
     showAnnouncementBar(promoData);
-    bar.style.transition = 'transform 300ms ease-out, box-shadow 300ms ease-out';
+    bar.style.transition = 'transform 300ms ease-out, box-shadow 300ms ease-out, background 300ms ease-out';
     bar.style.transform = 'scale(1.02)';
-    bar.style.boxShadow = '0 4px 32px rgba(0,0,0,0.25)';
+    bar.style.boxShadow = '0 4px 32px rgba(184,150,106,0.5)';
+    bar.style.background = 'rgba(184,150,106,0.9)';
   }, 800);
 
   /* 1600ms: Announcement bar resets */
   setTimeout(() => {
-    bar.style.transition = 'transform 400ms ease, box-shadow 400ms ease';
+    bar.style.transition = 'transform 400ms ease, box-shadow 400ms ease, background 400ms ease';
     bar.style.transform = 'scale(1)';
     bar.style.boxShadow = 'none';
+    bar.style.background = 'rgba(0,0,0,0.32)';
   }, 1600);
 
   /* 2200ms: Scroll to What's On section */
