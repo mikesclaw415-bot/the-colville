@@ -438,17 +438,19 @@ button {
   padding-bottom: 32px;
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 500ms ease, transform 500ms ease, box-shadow 300ms ease-out;
+  transition: opacity 500ms ease, transform 500ms ease;
+}
+
+.whats-on__card-inner {
+  display: flex;
+  width: 100%;
+  transition: transform 300ms ease-out, box-shadow 300ms ease-out;
   will-change: transform, box-shadow;
 }
 
 .whats-on__card--entering {
   opacity: 0;
   transform: translateY(-20px);
-}
-
-.whats-on__card--highlight .whats-on__card-body {
-  box-shadow: 0 8px 48px rgba(184, 150, 106, 0.2);
 }
 
 .whats-on__card-image {
@@ -1425,9 +1427,10 @@ button {
    What's On — Featured Layout
    ============================================================ */
 .whats-on__featured {
-  display: flex;
-  gap: 0;
   margin-bottom: 40px;
+}
+
+.whats-on__featured .whats-on__card-inner {
   min-height: 360px;
   align-items: stretch;
 }
@@ -1471,6 +1474,10 @@ button {
   margin-bottom: 0;
   border-bottom: none;
   padding-bottom: 0;
+}
+
+.whats-on__grid .whats-on__card-inner {
+  flex-direction: column;
 }
 
 .whats-on__grid .whats-on__card-image {
@@ -1716,7 +1723,7 @@ button {
   .whats-on {
     padding: 70px 0;
   }
-  .whats-on__featured {
+  .whats-on__featured .whats-on__card-inner {
     flex-direction: column;
   }
   .whats-on__featured .whats-on__card-image {
@@ -1968,45 +1975,51 @@ button {
     <div class="whats-on__list" id="whatsOnList">
       <!-- Featured promo card -->
       <div class="whats-on__featured whats-on__card" id="defaultPromoCard">
-        <div class="whats-on__card-image">
-          <img src="https://images.pexels.com/photos/3437689/pexels-photo-3437689.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Midweek Chef's Table">
-        </div>
-        <div class="whats-on__card-body">
-          <span class="whats-on__card-label">Special Menu</span>
-          <h3 class="whats-on__card-title">Midweek Chef's Table</h3>
-          <p class="whats-on__card-desc">Chef's 5-course tasting menu, Tuesday to Thursday</p>
-          <span class="whats-on__card-price">&pound;45pp</span>
-          <span class="whats-on__card-dates">Available until end of March</span>
-          <a href="#" class="whats-on__card-cta">Book now &rarr;</a>
+        <div class="whats-on__card-inner">
+          <div class="whats-on__card-image">
+            <img src="https://images.pexels.com/photos/3437689/pexels-photo-3437689.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Midweek Chef's Table">
+          </div>
+          <div class="whats-on__card-body">
+            <span class="whats-on__card-label">Special Menu</span>
+            <h3 class="whats-on__card-title">Midweek Chef's Table</h3>
+            <p class="whats-on__card-desc">Chef's 5-course tasting menu, Tuesday to Thursday</p>
+            <span class="whats-on__card-price">&pound;45pp</span>
+            <span class="whats-on__card-dates">Available until end of March</span>
+            <a href="#" class="whats-on__card-cta">Book now &rarr;</a>
+          </div>
         </div>
       </div>
 
       <!-- Bottom row: two equal cards -->
       <div class="whats-on__grid">
         <div class="whats-on__card">
-          <div class="whats-on__card-image">
-            <img src="https://images.pexels.com/photos/236887/pexels-photo-236887.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Sunday Roast & Cellar">
-          </div>
-          <div class="whats-on__card-body">
-            <span class="whats-on__card-label">Sunday Special</span>
-            <h3 class="whats-on__card-title">Sunday Roast &amp; Cellar</h3>
-            <p class="whats-on__card-desc">Three courses of modern British Sunday lunch with matched wines from our cellar list</p>
-            <span class="whats-on__card-price">&pound;55pp including wine flight</span>
-            <span class="whats-on__card-dates">Every Sunday, 12pm&ndash;5pm</span>
-            <a href="#" class="whats-on__card-cta">Reserve Sunday &rarr;</a>
+          <div class="whats-on__card-inner">
+            <div class="whats-on__card-image">
+              <img src="https://images.pexels.com/photos/236887/pexels-photo-236887.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Sunday Roast & Cellar">
+            </div>
+            <div class="whats-on__card-body">
+              <span class="whats-on__card-label">Sunday Special</span>
+              <h3 class="whats-on__card-title">Sunday Roast &amp; Cellar</h3>
+              <p class="whats-on__card-desc">Three courses of modern British Sunday lunch with matched wines from our cellar list</p>
+              <span class="whats-on__card-price">&pound;55pp including wine flight</span>
+              <span class="whats-on__card-dates">Every Sunday, 12pm&ndash;5pm</span>
+              <a href="#" class="whats-on__card-cta">Reserve Sunday &rarr;</a>
+            </div>
           </div>
         </div>
         <div class="whats-on__card">
-          <div class="whats-on__card-image">
-            <img src="https://images.pexels.com/photos/33474128/pexels-photo-33474128.jpeg?auto=compress&cs=tinysrgb&w=900" alt="The Kitchen Counter">
-          </div>
-          <div class="whats-on__card-body">
-            <span class="whats-on__card-label">Chef's Counter</span>
-            <h3 class="whats-on__card-title">The Kitchen Counter</h3>
-            <p class="whats-on__card-desc">Six seats at the pass. Watch the kitchen at work while we cook directly for you &mdash; a seven-course menu built around what arrived that morning</p>
-            <span class="whats-on__card-price">&pound;75pp</span>
-            <span class="whats-on__card-dates">Friday evenings only. Very limited availability.</span>
-            <a href="#" class="whats-on__card-cta">Join the Waitlist &rarr;</a>
+          <div class="whats-on__card-inner">
+            <div class="whats-on__card-image">
+              <img src="https://images.pexels.com/photos/33474128/pexels-photo-33474128.jpeg?auto=compress&cs=tinysrgb&w=900" alt="The Kitchen Counter">
+            </div>
+            <div class="whats-on__card-body">
+              <span class="whats-on__card-label">Chef's Counter</span>
+              <h3 class="whats-on__card-title">The Kitchen Counter</h3>
+              <p class="whats-on__card-desc">Six seats at the pass. Watch the kitchen at work while we cook directly for you &mdash; a seven-course menu built around what arrived that morning</p>
+              <span class="whats-on__card-price">&pound;75pp</span>
+              <span class="whats-on__card-dates">Friday evenings only. Very limited availability.</span>
+              <a href="#" class="whats-on__card-cta">Join the Waitlist &rarr;</a>
+            </div>
           </div>
         </div>
       </div>
@@ -2373,23 +2386,25 @@ function publishPromo() {
     addPromoCard(promoData);
   }, 3000);
 
-  /* 3500ms: New card scales up + shadow */
+  /* 3500ms: New card inner scales up + shadow */
   setTimeout(() => {
     const newCard = document.getElementById('whatsOnList').firstElementChild;
-    if (newCard) {
-      newCard.style.transition = 'transform 300ms ease-out, box-shadow 300ms ease-out';
-      newCard.style.transform = 'scale(1.02)';
-      newCard.style.boxShadow = '0 8px 40px rgba(0,0,0,0.18)';
+    const inner = newCard && newCard.querySelector('.whats-on__card-inner');
+    if (inner) {
+      inner.style.transition = 'transform 300ms ease-out, box-shadow 300ms ease-out';
+      inner.style.transform = 'scale(1.02)';
+      inner.style.boxShadow = '0 8px 40px rgba(0,0,0,0.18)';
     }
   }, 3500);
 
-  /* 4800ms: New card resets */
+  /* 4800ms: New card inner resets */
   setTimeout(() => {
     const newCard = document.getElementById('whatsOnList').firstElementChild;
-    if (newCard) {
-      newCard.style.transition = 'transform 500ms ease, box-shadow 500ms ease';
-      newCard.style.transform = 'scale(1)';
-      newCard.style.boxShadow = 'none';
+    const inner = newCard && newCard.querySelector('.whats-on__card-inner');
+    if (inner) {
+      inner.style.transition = 'transform 500ms ease, box-shadow 500ms ease';
+      inner.style.transform = 'scale(1)';
+      inner.style.boxShadow = 'none';
     }
   }, 4800);
 
@@ -2432,16 +2447,18 @@ function addPromoCard(data) {
   card.style.opacity = '0';
   card.style.transform = 'translateY(-12px)';
   card.innerHTML = `
-    <div class="whats-on__card-image" style="align-self: stretch; overflow: hidden;">
-      <img src="https://images.pexels.com/photos/12412205/pexels-photo-12412205.jpeg?auto=compress&cs=tinysrgb&w=900" alt="${data.title}" style="width: 100%; height: 100%; object-fit: cover; object-position: center; display: block;">
-    </div>
-    <div class="whats-on__card-body" style="background: #FFFFFF;">
-      <span class="whats-on__card-label">Special Menu</span>
-      <h3 class="whats-on__card-title">${data.title}</h3>
-      <p class="whats-on__card-desc">${data.description}</p>
-      <span class="whats-on__card-price">${data.price}</span>
-      <span class="whats-on__card-dates">${data.dates}</span>
-      <a href="#" class="whats-on__card-cta">${data.cta} &rarr;</a>
+    <div class="whats-on__card-inner">
+      <div class="whats-on__card-image" style="align-self: stretch; overflow: hidden;">
+        <img src="https://images.pexels.com/photos/12412205/pexels-photo-12412205.jpeg?auto=compress&cs=tinysrgb&w=900" alt="${data.title}" style="width: 100%; height: 100%; object-fit: cover; object-position: center; display: block;">
+      </div>
+      <div class="whats-on__card-body" style="background: #FFFFFF;">
+        <span class="whats-on__card-label">Special Menu</span>
+        <h3 class="whats-on__card-title">${data.title}</h3>
+        <p class="whats-on__card-desc">${data.description}</p>
+        <span class="whats-on__card-price">${data.price}</span>
+        <span class="whats-on__card-dates">${data.dates}</span>
+        <a href="#" class="whats-on__card-cta">${data.cta} &rarr;</a>
+      </div>
     </div>
   `;
 
