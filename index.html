@@ -1432,8 +1432,9 @@ button {
 .whats-on__featured .whats-on__card-image {
   width: 45%;
   min-width: 45%;
-  height: auto;
-  min-height: 360px;
+  height: 380px;
+  max-height: 380px;
+  overflow: hidden;
 }
 
 .whats-on__featured .whats-on__card-body {
@@ -1711,7 +1712,8 @@ button {
     width: 100%;
     min-width: 100%;
     height: 260px;
-    min-height: 260px;
+    max-height: 260px;
+    overflow: hidden;
   }
   .whats-on__featured .whats-on__card-body {
     width: 100%;
@@ -2368,11 +2370,13 @@ function publishPromo() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, 200);
 
-  /* 800ms: Dim everything, spotlight announcement bar, bar → brass 400ms */
+  /* 800ms: Dim all sections, announcement bar floats above as fixed element, bar → brass 400ms */
   setTimeout(() => {
     showAnnouncementBar(promoData);
-    dimAll();
-    spotlightEl(bar);
+    getBodySections().forEach(el => {
+      el.classList.add('spotlight-dim');
+      el.classList.remove('spotlight-bright');
+    });
     bar.style.transition = 'background 400ms ease';
     bar.style.background = 'rgba(184,150,106,0.75)';
   }, 800);
@@ -2393,12 +2397,15 @@ function publishPromo() {
     document.querySelector('.whats-on').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, 3000);
 
-  /* 3800ms: Dim everything, add and spotlight the new card */
+  /* 3800ms: Dim everything EXCEPT the whats-on section, add new card */
   setTimeout(() => {
-    dimAll();
+    getBodySections().forEach(el => {
+      if (el.id !== 'whats-on' && !el.classList.contains('whats-on')) {
+        el.classList.add('spotlight-dim');
+        el.classList.remove('spotlight-bright');
+      }
+    });
     addPromoCard(promoData);
-    const whatsOnSection = document.querySelector('.whats-on');
-    if (whatsOnSection) spotlightEl(whatsOnSection);
   }, 3800);
 
   /* 3900ms: Card glow/shadow applied (handled inside addPromoCard via rAF) */
@@ -2466,8 +2473,8 @@ function addPromoCard(data) {
   card.style.position = 'relative';
   card.style.zIndex = '600';
   card.innerHTML = `
-    <div class="whats-on__card-image">
-      <img src="https://images.pexels.com/photos/12412205/pexels-photo-12412205.jpeg?auto=compress&cs=tinysrgb&w=900" alt="${data.title}">
+    <div class="whats-on__card-image" style="height: 280px; overflow: hidden;">
+      <img src="https://images.pexels.com/photos/12412205/pexels-photo-12412205.jpeg?auto=compress&cs=tinysrgb&w=900" alt="${data.title}" style="object-fit: cover; width: 100%; height: 100%;">
     </div>
     <div class="whats-on__card-body" style="background: #FFFFFF; will-change: box-shadow, opacity;">
       <span class="whats-on__card-label">Special Menu</span>
